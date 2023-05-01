@@ -1,0 +1,71 @@
+package battleship;
+
+import static battleship.Main.BattleshipField;
+import static java.lang.Math.abs;
+
+
+public class Ships {
+    private final int beginningRow;
+    private final int beginningColumn;
+    private final int endRow;
+    private final int endsColumn;
+
+
+    public Ships(String battleshipCoordinates) {
+
+
+
+        String battleship = battleshipCoordinates.replaceAll("\\s+", "");
+        String[] splitStr = battleship.split("(?<=\\D)(?=\\d)|(?<=\\d)(?=\\D)");
+
+        beginningRow = (int) splitStr[0].charAt(0)-65;
+        beginningColumn = Integer.parseInt(splitStr[1])-1;
+        endRow = (int) splitStr[2].charAt(0)-65;
+        endsColumn = Integer.parseInt(splitStr[3])-1;
+
+
+    }
+
+    public boolean shipDraw(int shipLength) {
+
+        if (beginningRow == endRow || beginningColumn == endsColumn) {
+            if (abs(beginningRow - endRow) == shipLength - 1 || abs(beginningColumn - endsColumn) == shipLength - 1) {
+                if (beginningRow == endRow){
+                    if (beginningColumn<endsColumn) {
+                        for (int i = 0; i < shipLength; i++) {
+                            Field.LocalArray[beginningRow][beginningColumn + i] = "O";
+                        }
+                    } else if (beginningColumn>endsColumn) {
+                        for (int i = 0; i < shipLength; i++) {
+                            Field.LocalArray[beginningRow][beginningColumn - i] = "O";
+                        }
+                    }
+                }
+                if (beginningColumn == endsColumn){
+                    if (beginningRow<endRow) {
+                        for (int i = 0; i < shipLength; i++) {
+                            Field.LocalArray[beginningRow+ i][beginningColumn] = "O";
+                        }
+                    }else if (beginningRow>endRow){
+                        for (int i = 0; i < shipLength; i++) {
+                            Field.LocalArray[beginningRow- i][beginningColumn] = "O";
+                        }
+                    }
+                }
+
+                BattleshipField.fieldDraw();
+                return false;
+            }
+            else {
+                System.out.print("Error! Wrong length of the Submarine! Try again:\n> ");
+                return true;
+            }
+        }
+        else {
+            System.out.print("Error! Wrong ship location! Try again:\n> ");
+            return true;
+        }
+
+    }
+
+}
