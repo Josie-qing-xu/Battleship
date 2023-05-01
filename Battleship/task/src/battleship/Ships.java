@@ -5,10 +5,10 @@ import static java.lang.Math.abs;
 
 
 public class Ships {
-    private final int beginningRow;
-    private final int beginningColumn;
-    private final int endRow;
-    private final int endsColumn;
+    private  int beginningRow;
+    private  int beginningColumn;
+    private  int endRow;
+    private  int endsColumn;
 
 
     public Ships(String battleshipCoordinates) {
@@ -23,6 +23,16 @@ public class Ships {
         endRow = (int) splitStr[2].charAt(0)-65;
         endsColumn = Integer.parseInt(splitStr[3])-1;
 
+        if (beginningColumn > endsColumn) {
+            int x = beginningColumn;
+            beginningColumn = endsColumn;
+            endsColumn = x;
+        }
+        if (beginningRow > endRow) {
+            int x = beginningRow;
+            beginningRow = endRow;
+            endRow = x;
+        }
 
     }
 
@@ -31,25 +41,13 @@ public class Ships {
         if (beginningRow == endRow || beginningColumn == endsColumn) {
             if (abs(beginningRow - endRow) == shipLength - 1 || abs(beginningColumn - endsColumn) == shipLength - 1) {
                 if (beginningRow == endRow){
-                    if (beginningColumn<endsColumn) {
-                        for (int i = 0; i < shipLength; i++) {
-                            Field.LocalArray[beginningRow][beginningColumn + i] = "O";
-                        }
-                    } else if (beginningColumn>endsColumn) {
-                        for (int i = 0; i < shipLength; i++) {
-                            Field.LocalArray[beginningRow][beginningColumn - i] = "O";
-                        }
+                    for (int i = 0; i < shipLength; i++) {
+                        Field.LocalArray[beginningRow][beginningColumn + i] = "O";
                     }
                 }
                 if (beginningColumn == endsColumn){
-                    if (beginningRow<endRow) {
-                        for (int i = 0; i < shipLength; i++) {
-                            Field.LocalArray[beginningRow+ i][beginningColumn] = "O";
-                        }
-                    }else if (beginningRow>endRow){
-                        for (int i = 0; i < shipLength; i++) {
-                            Field.LocalArray[beginningRow- i][beginningColumn] = "O";
-                        }
+                    for (int i = 0; i < shipLength; i++) {
+                        Field.LocalArray[beginningRow+ i][beginningColumn] = "O";
                     }
                 }
 
