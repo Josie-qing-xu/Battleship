@@ -1,5 +1,7 @@
 package battleship;
 
+import java.util.Objects;
+
 import static battleship.Main.BattleshipField;
 import static java.lang.Math.abs;
 
@@ -41,13 +43,22 @@ public class Ships {
         if (beginningRow == endRow || beginningColumn == endsColumn) {
             if (abs(beginningRow - endRow) == shipLength - 1 || abs(beginningColumn - endsColumn) == shipLength - 1) {
                 if (beginningRow == endRow){
-                    for (int i = 0; i < shipLength; i++) {
-                        Field.LocalArray[beginningRow][beginningColumn + i] = "O";
+                    if (horizontalShipBounds(shipLength)){
+                        return true;
+                    } else {
+                        for (int i = 0; i < shipLength; i++) {
+                            Field.LocalArray[beginningRow][beginningColumn + i] = "O";
+                        }
                     }
+
                 }
                 if (beginningColumn == endsColumn){
-                    for (int i = 0; i < shipLength; i++) {
-                        Field.LocalArray[beginningRow+ i][beginningColumn] = "O";
+                    if (verticalsShipBounds(shipLength)){
+                        return true;
+                    } else {
+                        for (int i = 0; i < shipLength; i++) {
+                            Field.LocalArray[beginningRow + i][beginningColumn] = "O";
+                        }
                     }
                 }
 
@@ -65,5 +76,97 @@ public class Ships {
         }
 
     }
+    public boolean horizontalShipBounds(int shipLength) {
+        for (int n = 0; n < shipLength; n++) {
+            try {
+                if (Objects.equals(Field.LocalArray[beginningRow][beginningColumn + n], "O")) {
+                    System.out.print("Error! You placed it too close to another one. Try again:\n> ");
+                    return true;
+                }
+            } catch (Exception ArrayIndexOutOfBoundsException) {
+                assert true;
+            }
+            try {
+                if (Objects.equals(Field.LocalArray[beginningRow + 1][beginningColumn + n], "O")) {
+                    System.out.print("Error! You placed it too close to another one. Try again:\n> ");
+                    return true;
+                }
+            } catch (Exception ArrayIndexOutOfBoundsException) {
+                assert true;
+            }
+            try {
+                if (Objects.equals(Field.LocalArray[beginningRow - 1][beginningColumn + n], "O")) {
+                    System.out.print("Error! You placed it too close to another one. Try again:\n> ");
+                    return true;
+                }
+            } catch (Exception ArrayIndexOutOfBoundsException) {
+                assert true;
+            }
+            try {
+                if (Objects.equals(Field.LocalArray[beginningRow][beginningColumn + n - 1], "O")) {
+                    System.out.print("Error! You placed it too close to another one. Try again:\n> ");
+                    return true;
+                }
+            } catch (Exception ArrayIndexOutOfBoundsException) {
+                assert true;
+            }
+            try {
+                if (Objects.equals(Field.LocalArray[beginningRow][beginningColumn + n + 1], "O")) {
+                    System.out.print("Error! You placed it too close to another one. Try again:\n> ");
+                    return true;
+                }
+            } catch (Exception ArrayIndexOutOfBoundsException) {
+                assert true;
+            }
 
+        }
+        return false;
+    }
+
+    public boolean verticalsShipBounds(int shipLength) {
+        for (int n = 0; n < shipLength; n++) {
+            try {
+                if (Objects.equals(Field.LocalArray[beginningRow + n][beginningColumn], "O")) {
+                    System.out.print("Error! You placed it too close to another one. Try again:\n> ");
+                    return true;
+                }
+            } catch (Exception ArrayIndexOutOfBoundsException) {
+                assert true;
+            }
+            try {
+                if (Objects.equals(Field.LocalArray[beginningRow + n][beginningColumn + 1], "O")) {
+                    System.out.print("Error! You placed it too close to another one. Try again:\n> ");
+                    return true;
+                }
+            } catch (Exception ArrayIndexOutOfBoundsException) {
+                assert true;
+            }
+            try {
+                if (Objects.equals(Field.LocalArray[beginningRow + n][beginningColumn - 1], "O")) {
+                    System.out.print("Error! You placed it too close to another one. Try again:\n> ");
+                    return true;
+                }
+            } catch (Exception ArrayIndexOutOfBoundsException) {
+                assert true;
+            }
+            try {
+                if (Objects.equals(Field.LocalArray[beginningRow + n - 1][beginningColumn], "O")) {
+                    System.out.print("Error! You placed it too close to another one. Try again:\n> ");
+                    return true;
+                }
+            } catch (Exception ArrayIndexOutOfBoundsException) {
+                assert true;
+            }
+            try {
+                if (Objects.equals(Field.LocalArray[beginningRow + n + 1][beginningColumn], "O")) {
+                    System.out.print("Error! You placed it too close to another one. Try again:\n> ");
+                    return true;
+                }
+            } catch (Exception ArrayIndexOutOfBoundsException) {
+                assert true;
+            }
+
+        }
+        return false;
+    }
 }
