@@ -32,9 +32,21 @@ public class Main {
             boolean result;
             do {
                 String shipCoordinates = coordinates.nextLine();
-                Ships Aircraft = new Ships(shipCoordinates);
-                result = Aircraft.shipDraw(shipLength);
+                Ships battleship = new Ships(shipCoordinates);
+                result = battleship.shipDraw(shipLength);
             }while (result);
         }
+
+        System.out.print("\nThe game starts!\n");
+        BattleshipField.fieldDraw();
+        System.out.print("\nTake a shot!\n>");
+        boolean hit;
+        do {
+            String shotCoordinates = coordinates.nextLine();
+            Shot shell = new Shot(shotCoordinates);
+            hit = shell.shotHit();
+
+        }while (hit);
+        BattleshipField.fieldDraw();
     }
 }
