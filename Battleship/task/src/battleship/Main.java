@@ -6,6 +6,8 @@ import java.util.Hashtable;
 public class Main {
 
     public static Field BattleshipField;
+    public static Field BattleshipCoverFog;
+
     public static Hashtable<String, Integer>  ship_dict = new Hashtable<>();
 
 
@@ -15,6 +17,7 @@ public class Main {
         int BattleshipRows = 10;
         int BattleshipColumns = 10;
         BattleshipField = new Field(BattleshipRows,BattleshipColumns);
+        BattleshipCoverFog = new Field(BattleshipRows,BattleshipColumns);
         BattleshipField.fieldDraw();
         ship_dict.put("Aircraft Carrier", 5);
         ship_dict.put("Battleship", 4);
@@ -32,20 +35,25 @@ public class Main {
             boolean result;
             do {
                 String shipCoordinates = coordinates.nextLine();
-                Ships battleship = new Ships(shipCoordinates);
-                result = battleship.shipDraw(shipLength);
+                Ships battleship = new Ships(shipCoordinates,BattleshipField);
+                result = battleship.ship(shipLength);
+                if (!result){
+                    BattleshipField.fieldDraw();
+                }
+
             }while (result);
         }
 
         System.out.print("\nThe game starts!\n");
-        BattleshipField.fieldDraw();
+        BattleshipCoverFog.fieldDraw();
+
+
         System.out.print("\nTake a shot!\n>");
         boolean hit;
         do {
             String shotCoordinates = coordinates.nextLine();
-            Shot shell = new Shot(shotCoordinates);
+            Shot shell = new Shot(shotCoordinates,BattleshipField,BattleshipCoverFog);
             hit = shell.shotHit();
-
         }while (hit);
         BattleshipField.fieldDraw();
     }

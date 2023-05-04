@@ -2,20 +2,21 @@ package battleship;
 
 import java.util.Objects;
 
-import static battleship.Main.BattleshipField;
 import static java.lang.Math.abs;
 
 
-public class Ships {
+class Ships {
+
+    private final Field field;
     private  int beginningRow;
     private  int beginningColumn;
     private  int endRow;
     private  int endsColumn;
 
 
-    public Ships(String battleshipCoordinates) {
+    Ships(String battleshipCoordinates,Field field) {
 
-
+        this.field = field;
 
         String battleship = battleshipCoordinates.replaceAll("\\s+", "");
         String[] splitStr = battleship.split("(?<=\\D)(?=\\d)|(?<=\\d)(?=\\D)");
@@ -38,7 +39,7 @@ public class Ships {
 
     }
 
-    public boolean shipDraw(int shipLength) {
+    public boolean ship(int shipLength) {
 
         if (beginningRow == endRow || beginningColumn == endsColumn) {
             if (abs(beginningRow - endRow) == shipLength - 1 || abs(beginningColumn - endsColumn) == shipLength - 1) {
@@ -48,7 +49,7 @@ public class Ships {
                         return true;
                     } else {
                         for (int i = 0; i < shipLength; i++) {
-                            Field.LocalArray[beginningRow][beginningColumn + i] = "O";
+                            field.LocalArray[beginningRow][beginningColumn + i] = "O";
                         }
                     }
 
@@ -59,12 +60,11 @@ public class Ships {
                         return true;
                     } else {
                         for (int i = 0; i < shipLength; i++) {
-                            Field.LocalArray[beginningRow + i][beginningColumn] = "O";
+                            field.LocalArray[beginningRow + i][beginningColumn] = "O";
                         }
                     }
                 }
 
-                BattleshipField.fieldDraw();
                 return false;
             }
             else {
@@ -81,7 +81,7 @@ public class Ships {
     public boolean horizontalShipBounds(int shipLength) {
         for (int n = 0; n < shipLength; n++) {
             try {
-                if (Objects.equals(Field.LocalArray[beginningRow][beginningColumn + n], "O")) {
+                if (Objects.equals(field.LocalArray[beginningRow][beginningColumn + n], "O")) {
 
                     return true;
                 }
@@ -89,28 +89,28 @@ public class Ships {
                 assert true;
             }
             try {
-                if (Objects.equals(Field.LocalArray[beginningRow + 1][beginningColumn + n], "O")) {
+                if (Objects.equals(field.LocalArray[beginningRow + 1][beginningColumn + n], "O")) {
                     return true;
                 }
             } catch (Exception ArrayIndexOutOfBoundsException) {
                 assert true;
             }
             try {
-                if (Objects.equals(Field.LocalArray[beginningRow - 1][beginningColumn + n], "O")) {
+                if (Objects.equals(field.LocalArray[beginningRow - 1][beginningColumn + n], "O")) {
                     return true;
                 }
             } catch (Exception ArrayIndexOutOfBoundsException) {
                 assert true;
             }
             try {
-                if (Objects.equals(Field.LocalArray[beginningRow][beginningColumn + n - 1], "O")) {
+                if (Objects.equals(field.LocalArray[beginningRow][beginningColumn + n - 1], "O")) {
                     return true;
                 }
             } catch (Exception ArrayIndexOutOfBoundsException) {
                 assert true;
             }
             try {
-                if (Objects.equals(Field.LocalArray[beginningRow][beginningColumn + n + 1], "O")) {
+                if (Objects.equals(field.LocalArray[beginningRow][beginningColumn + n + 1], "O")) {
                     return true;
                 }
             } catch (Exception ArrayIndexOutOfBoundsException) {
@@ -124,35 +124,35 @@ public class Ships {
     public boolean verticalsShipBounds(int shipLength) {
         for (int n = 0; n < shipLength; n++) {
             try {
-                if (Objects.equals(Field.LocalArray[beginningRow + n][beginningColumn], "O")) {
+                if (Objects.equals(field.LocalArray[beginningRow + n][beginningColumn], "O")) {
                     return true;
                 }
             } catch (Exception ArrayIndexOutOfBoundsException) {
                 assert true;
             }
             try {
-                if (Objects.equals(Field.LocalArray[beginningRow + n][beginningColumn + 1], "O")) {
+                if (Objects.equals(field.LocalArray[beginningRow + n][beginningColumn + 1], "O")) {
                     return true;
                 }
             } catch (Exception ArrayIndexOutOfBoundsException) {
                 assert true;
             }
             try {
-                if (Objects.equals(Field.LocalArray[beginningRow + n][beginningColumn - 1], "O")) {
+                if (Objects.equals(field.LocalArray[beginningRow + n][beginningColumn - 1], "O")) {
                     return true;
                 }
             } catch (Exception ArrayIndexOutOfBoundsException) {
                 assert true;
             }
             try {
-                if (Objects.equals(Field.LocalArray[beginningRow + n - 1][beginningColumn], "O")) {
+                if (Objects.equals(field.LocalArray[beginningRow + n - 1][beginningColumn], "O")) {
                     return true;
                 }
             } catch (Exception ArrayIndexOutOfBoundsException) {
                 assert true;
             }
             try {
-                if (Objects.equals(Field.LocalArray[beginningRow + n + 1][beginningColumn], "O")) {
+                if (Objects.equals(field.LocalArray[beginningRow + n + 1][beginningColumn], "O")) {
                     return true;
                 }
             } catch (Exception ArrayIndexOutOfBoundsException) {
