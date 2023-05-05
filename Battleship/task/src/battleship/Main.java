@@ -55,6 +55,6 @@ public class Main {
             Shot shell = new Shot(shotCoordinates,BattleshipField,BattleshipCoverFog);
             hit = shell.shotHit();
         }while (hit);
-        BattleshipField.fieldDraw();
+
     }
 }

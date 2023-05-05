@@ -27,22 +27,22 @@ public class Shot {
             if (Objects.equals(ship.LocalArray[Row][Column], "O")) {
 
                 fog.LocalArray[Row][Column] = "X";
-                ship.LocalArray[Row][Column] = "X";
+
                 BattleshipCoverFog.fieldDraw();
-                System.out.print("You hit a ship!\n");
+                System.out.print("You hit a ship! Try again:\n > ");
             } else {
 
                 fog.LocalArray[Row][Column] = "M";
-                ship.LocalArray[Row][Column] = "M";
+
                 BattleshipCoverFog.fieldDraw();
-                System.out.print("You missed!\n");
+                System.out.print("You missed! Try again:\n > ");
             }
         }
         catch (Exception ArrayIndexOutOfBoundsException) {
             System.out.print("Error! You entered the wrong coordinates! Try again:\n>");
-            return true;
+
         }
 
-        return false;
+        return true;
     }
 }
