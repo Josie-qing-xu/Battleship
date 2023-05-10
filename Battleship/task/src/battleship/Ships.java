@@ -1,22 +1,27 @@
 package battleship;
 
-import java.util.Objects;
+import java.util.*;
 
+import static battleship.Main.Coordinates;
 import static java.lang.Math.abs;
 
 
 class Ships {
 
     private final Field field;
+    private final String shipName;
     private  int beginningRow;
     private  int beginningColumn;
     private  int endRow;
     private  int endsColumn;
 
 
-    Ships(String shipCoordinates,Field field) {
+
+
+    Ships(String shipName,String shipCoordinates,Field field) {
 
         this.field = field;
+        this.shipName = shipName;
 
         String coordinates = shipCoordinates.replaceAll("\\s+", "");
         String[] splitStr = coordinates.split("(?<=\\D)(?=\\d)|(?<=\\d)(?=\\D)");
@@ -48,9 +53,18 @@ class Ships {
                         System.out.print("Error! You placed it too close to another one. Try again:\n> ");
                         return true;
                     } else {
+
                         for (int i = 0; i < shipLength; i++) {
-                            field.LocalArray[beginningRow][beginningColumn + i] = "O";
+                            int Row = beginningRow;
+                            int Column = beginningColumn+i;
+
+                            field.LocalArray[Row][Column] = "O";
+                            // add dict value
+                            Coordinates.put(Integer.toString(Row)+ Column, shipName);
+
                         }
+
+
                     }
 
                 }
