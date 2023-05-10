@@ -14,12 +14,12 @@ class Ships {
     private  int endsColumn;
 
 
-    Ships(String battleshipCoordinates,Field field) {
+    Ships(String shipCoordinates,Field field) {
 
         this.field = field;
 
-        String battleship = battleshipCoordinates.replaceAll("\\s+", "");
-        String[] splitStr = battleship.split("(?<=\\D)(?=\\d)|(?<=\\d)(?=\\D)");
+        String coordinates = shipCoordinates.replaceAll("\\s+", "");
+        String[] splitStr = coordinates.split("(?<=\\D)(?=\\d)|(?<=\\d)(?=\\D)");
 
         beginningRow = (int) splitStr[0].charAt(0)-65;
         beginningColumn = Integer.parseInt(splitStr[1])-1;

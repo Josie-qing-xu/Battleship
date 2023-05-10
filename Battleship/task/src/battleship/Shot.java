@@ -2,20 +2,18 @@ package battleship;
 
 import java.util.Objects;
 
-import static battleship.Main.BattleshipCoverFog;
-
 public class Shot {
 
-    private final Field ship;
-    private final Field fog;
+    private final Field field;
+    private final Field fogfield;
     private final int Row;
     private final int Column;
 
 
-    public Shot(String shotCoordinates, Field ship, Field fog) {
+    public Shot(String shotCoordinates, Field field, Field fogfield) {
 
-        this.ship = ship;
-        this.fog = fog;
+        this.field = field;
+        this.fogfield = fogfield;
         String[] splitStr = shotCoordinates.split("(?<=\\D)(?=\\d)|(?<=\\d)(?=\\D)");
         Row = (int) splitStr[0].charAt(0) - 65;
         Column = Integer.parseInt(splitStr[1]) - 1;
@@ -24,17 +22,17 @@ public class Shot {
     public boolean shotHit() {
         try {
 
-            if (Objects.equals(ship.LocalArray[Row][Column], "O")) {
+            if (Objects.equals(field.LocalArray[Row][Column], "O")) {
 
-                fog.LocalArray[Row][Column] = "X";
+                fogfield.LocalArray[Row][Column] = "X";
 
-                BattleshipCoverFog.fieldDraw();
+                fogfield.fieldDraw();
                 System.out.print("You hit a ship! Try again:\n> ");
             } else {
 
-                fog.LocalArray[Row][Column] = "M";
+                fogfield.LocalArray[Row][Column] = "M";
 
-                BattleshipCoverFog.fieldDraw();
+                fogfield.fieldDraw();
                 System.out.print("You missed! Try again:\n> ");
             }
         }
