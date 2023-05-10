@@ -1,6 +1,9 @@
 package battleship;
 
 import java.util.Objects;
+import static battleship.Main.Coordinates;
+import static battleship.Main.shipDict;
+
 
 public class Shot {
 
@@ -20,14 +23,23 @@ public class Shot {
     }
 
     public boolean shotHit() {
+        String shipName = Coordinates.get(Integer.toString(Row) + Column);
         try {
 
             if (Objects.equals(field.LocalArray[Row][Column], "O")) {
+                if (!Objects.equals(fogfield.LocalArray[Row][Column], "X")){
 
-                fogfield.LocalArray[Row][Column] = "X";
+                    fogfield.LocalArray[Row][Column] = "X";
+
+                    shipDict.put(shipName, shipDict.get(shipName) - 1);
+                }
 
                 fogfield.fieldDraw();
-                System.out.print("You hit a ship! Try again:\n> ");
+                if (shipDict.get(shipName) == 0){
+                    System.out.print("You sank a ship! Specify a new target:\n> ");
+                } else {
+                    System.out.print("You hit a ship! Try again:\n> ");
+                }
             } else {
 
                 fogfield.LocalArray[Row][Column] = "M";
@@ -40,7 +52,6 @@ public class Shot {
             System.out.print("Error! You entered the wrong coordinates! Try again:\n> ");
 
         }
-
         return true;
     }
 }
