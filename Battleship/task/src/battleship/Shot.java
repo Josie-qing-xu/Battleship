@@ -36,6 +36,15 @@ public class Shot {
 
                 fogfield.fieldDraw();
                 if (shipDict.get(shipName) == 0){
+                    int sum = 0;
+                    for (String key : shipDict.keySet()) {
+
+                        sum = sum + shipDict.get(key);
+                    }
+                    if (sum == 0){
+                        System.out.print("You sank the last ship. You won. Congratulations!");
+                        return false;
+                    }
                     System.out.print("You sank a ship! Specify a new target:\n> ");
                 } else {
                     System.out.print("You hit a ship! Try again:\n> ");
@@ -50,7 +59,6 @@ public class Shot {
         }
         catch (Exception ArrayIndexOutOfBoundsException) {
             System.out.print("Error! You entered the wrong coordinates! Try again:\n> ");
-
         }
         return true;
     }

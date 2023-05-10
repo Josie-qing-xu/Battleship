@@ -74,7 +74,10 @@ class Ships {
                         return true;
                     } else {
                         for (int i = 0; i < shipLength; i++) {
-                            field.LocalArray[beginningRow + i][beginningColumn] = "O";
+                            int Row = beginningRow+i;
+                            int Column = beginningColumn;
+                            field.LocalArray[Row][Column] = "O";
+                            Coordinates.put(Integer.toString(Row)+ Column, shipName);
                         }
                     }
                 }
@@ -82,7 +85,7 @@ class Ships {
                 return false;
             }
             else {
-                System.out.print("Error! Wrong length of the Submarine! Try again:\n> ");
+                System.out.printf("Error! Wrong length of the %s! Try again:\n> ",shipName);
                 return true;
             }
         }
